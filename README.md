@@ -4,6 +4,14 @@ A small browser-based and command-line tool that lets you reset/re-enable Pokém
 
 In plain terms, this is a way to reset/re-enable Pokémon Unbound's one-time **NPC RTC Time Fixer**. If you already used the NPC while your emulator or device RTC was still wrong, you can use this tool after correcting the RTC so the NPC can be used again and perform the real in-game repair.
 
+## Screenshots
+
+| Pokémon Unbound intro/title screen | Time Fixer NPC in Frozen Heights |
+| --- | --- |
+| <img src="assets/screenshots/pokemon-unbound-intro.webp" alt="Pokémon Unbound intro/title screen" width="360"> | <img src="assets/screenshots/time-fixer-npc.jpg" alt="Pokémon Unbound Time Fixer NPC in Frozen Heights" width="360"> |
+
+Screenshots are included for documentation/context. Pokémon Unbound and Pokémon-related assets belong to their respective owners.
+
 Search terms: Pokémon Unbound RTC fix, RTC tampering detected, 2070 date bug, wrong date, Time Fixer NPC, Frozen Heights Time Fixer, GBAdhoc RTC, TempGBA RTC, PSP Pokémon Unbound, RTC warning after emulator migration, Time Fixer already used.
 
 ## How this solution came about
