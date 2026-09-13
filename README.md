@@ -18,7 +18,7 @@ Search terms: Pokémon Unbound RTC fix, RTC tampering detected, 2070 date bug, w
 
 We encountered the problem while playing Pokémon Unbound on a PSP using **GBAdhoc**. The PSP's own date/time was correct and the time of day seen by the game could look correct, but Unbound's calendar ended up around **2070** and triggered its RTC-tampering protection.
 
-Observed RTC warning sequence after moving the save to TempGBA:
+Observed RTC warning sequence in GBAdhoc, which persisted after moving the save to TempGBA:
 
 <img src="assets/screenshots/rtc-warning-01-warning.png" alt="Pokémon Unbound warning dialog" width="240">
 <img src="assets/screenshots/rtc-warning-02-detected.png" alt="Pokémon Unbound RTC tampering detected dialog" width="240">
