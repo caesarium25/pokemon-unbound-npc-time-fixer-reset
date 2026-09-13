@@ -18,8 +18,6 @@ Search terms: Pokémon Unbound RTC fix, RTC tampering detected, 2070 date bug, w
 
 We encountered the problem while playing Pokémon Unbound on a PSP using **GBAdhoc**. The PSP's own date/time was correct and the time of day seen by the game could look correct, but Unbound's calendar ended up around **2070** and triggered its RTC-tampering protection.
 
-<img src="assets/screenshots/rtc-tampering-warning.jpg" alt="Pokémon Unbound RTC tampering warning from the observed PSP GBAdhoc case" width="360">
-
 The 2070 value appears to be an RTC/calendar emulation or epoch problem in this scenario rather than the PSP clock itself being set to 2070. A 1970-like epoch value can surface as 2070 in Unbound while hours/minutes are still plausible. We have not established that every GBAdhoc build or every game has this behavior, so this repository documents it as an observed GBAdhoc/Unbound case rather than a universal GBAdhoc bug.
 
 Unfortunately, the in-game **Time Fixer NPC** was used while that bad RTC state was still active. We later moved the same `.sav` to **TempGBA4PSP-Mod**. TempGBA correctly obtained the PSP date/time, and after saving there the save screen showed the correct current date, but Unbound continued to show the RTC tampering warning.
@@ -88,7 +86,7 @@ Thanks to **Zannael and [PUSE (Pokémon Unbound Save Editor)](https://zannael.gi
 
 Thanks also to the Pokémon Unbound, PSP homebrew, GBAdhoc, and TempGBA communities and developers.
 
-Screenshot sources: the Time Fixer NPC screenshot is from the [Pokémon Unbound Wiki Frozen Heights page](https://unboundwiki.com/locations/frozen-heights/), the intro/title screenshot is from the [Pokémon Unbound Backloggd/IGDB listing](https://backloggd.com/games/pokemon-unbound/), and the RTC tampering warning photo is from the observed PSP/GBAdhoc case documented in this investigation.
+Screenshot sources: the Time Fixer NPC screenshot is from the [Pokémon Unbound Wiki Frozen Heights page](https://unboundwiki.com/locations/frozen-heights/), and the intro/title screenshot is from the [Pokémon Unbound Backloggd/IGDB listing](https://backloggd.com/games/pokemon-unbound/).
 
 No Pokémon ROMs or user save data are distributed in this repository.
 
