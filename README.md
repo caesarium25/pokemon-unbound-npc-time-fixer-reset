@@ -88,6 +88,8 @@ Thanks to **Zannael and [PUSE (Pokémon Unbound Save Editor)](https://zannael.gi
 
 Thanks also to the Pokémon Unbound, PSP homebrew, GBAdhoc, and TempGBA communities and developers.
 
+Screenshot sources: the Time Fixer NPC screenshot is from the [Pokémon Unbound Wiki Frozen Heights page](https://unboundwiki.com/locations/frozen-heights/), the intro/title screenshot is from the [Pokémon Unbound Backloggd/IGDB listing](https://backloggd.com/games/pokemon-unbound/), and the RTC tampering warning photo is from the observed PSP/GBAdhoc case documented in this investigation.
+
 No Pokémon ROMs or user save data are distributed in this repository.
 
 ## License
