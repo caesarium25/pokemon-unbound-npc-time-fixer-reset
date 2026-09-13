@@ -1,6 +1,6 @@
 # Pokémon Unbound NPC Time Fixer Reset
 
-A small browser-based and command-line recovery tool for a specific **Pokémon Unbound RTC** problem: the emulator clock is now correct, but Unbound still shows **RTC tampering detected** and the one-time **Time Fixer NPC in Frozen Heights** has already been used.
+A small browser-based and command-line tool that lets you reset/re-enable Pokémon Unbound's one-time **Time Fixer NPC in Frozen Heights** after it has already been used.
 
 In plain terms, this is a way to reset/re-enable Pokémon Unbound's one-time **NPC RTC Time Fixer**. If you already used the NPC while your emulator or device RTC was still wrong, you can use this tool after correcting the RTC so the NPC can be used again and perform the real in-game repair.
 
