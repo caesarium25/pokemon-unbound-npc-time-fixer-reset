@@ -32,7 +32,7 @@ No other byte is changed by the default repair.
 
 ## Why this is believed to be the one-time-use flag
 
-A known broken → NPC-fixed comparison in PUSE's RTC manifest contains:
+A known broken → NPC-fixed comparison in [PUSE](https://zannael.github.io/PUSE/)'s RTC manifest contains:
 
 ```text
 section 4
@@ -68,7 +68,7 @@ In the reproduced test, newest-generation-only editing worked.
 
 ## Section-4 checksum behavior
 
-PUSE treats section IDs `0`, `4`, and `13` as opaque for its RTC workflow. For section 4 it preserves/uses known checksum metadata rather than applying the standard section checksum routine.
+[PUSE](https://zannael.github.io/PUSE/) treats section IDs `0`, `4`, and `13` as opaque for its RTC workflow. For section 4 it preserves/uses known checksum metadata rather than applying the standard section checksum routine.
 
 The successful one-byte repair also left the section-4 footer/checksum unchanged.
 
