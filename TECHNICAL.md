@@ -90,7 +90,11 @@ It does not attempt to repair a genuinely broken emulator RTC, set the clock, or
 PSP date/time correct
   -> GBAdhoc/Unbound calendar observed around 2070
   -> RTC tampering warning
-  -> Frozen Heights Time Fixer used while RTC state still wrong
+  -> Frozen Heights Time Fixer used in GBAdhoc
+  -> immediate RTC warning clears, but in-game calendar remains January 1, 2070
+  -> calendar advances to January 2, 2070
+  -> RTC tampering warning returns
+  -> Time Fixer NPC is already consumed
   -> save migrated to TempGBA4PSP-Mod
   -> TempGBA supplies correct PSP date/time
   -> save screen date becomes correct

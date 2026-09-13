@@ -18,7 +18,7 @@ Search terms: Pokémon Unbound RTC fix, RTC tampering detected, 2070 date bug, w
 
 ## How this solution came about
 
-We encountered the problem while playing Pokémon Unbound on a PSP using **GBAdhoc**. The PSP's own date/time was correct and the time of day seen by the game could look correct, but Unbound's calendar ended up around **2070**. The RTC-tampering protection triggered after the in-game calendar advanced from **January 1, 2070** to **January 2, 2070**.
+We encountered the problem while playing Pokémon Unbound on a PSP using **GBAdhoc**. The PSP's own date/time was correct and the time of day seen by the game could look correct, but Unbound's calendar ended up around **2070**. The in-game **Time Fixer NPC** was able to clear the immediate RTC warning in GBAdhoc, but the calendar date itself remained wrong at **January 1, 2070**. When the in-game calendar advanced to **January 2, 2070**, the RTC-tampering warning appeared again, and the one-time Time Fixer had already been used.
 
 Observed RTC warning sequence in GBAdhoc, which persisted after moving the save to TempGBA:
 
@@ -30,7 +30,7 @@ Observed RTC warning sequence in GBAdhoc, which persisted after moving the save 
 
 The 2070 value appears to be an RTC/calendar emulation or epoch problem in this scenario rather than the PSP clock itself being set to 2070. A 1970-like epoch value can surface as 2070 in Unbound while hours/minutes are still plausible. We have not established that every GBAdhoc build or every game has this behavior, so this repository documents it as an observed GBAdhoc/Unbound case rather than a universal GBAdhoc bug.
 
-Unfortunately, the in-game **Time Fixer NPC** was used while that bad RTC state was still active. We later moved the same `.sav` to **TempGBA4PSP-Mod**. TempGBA correctly obtained the PSP date/time, and after saving there the save screen showed the correct current date, but Unbound continued to show the RTC tampering warning.
+We later moved the same `.sav` to **TempGBA4PSP-Mod**. TempGBA correctly obtained the PSP date/time, and after saving there the save screen showed the correct current date, but Unbound continued to show the RTC tampering warning because the save had already recorded the bad RTC history and the Time Fixer NPC was already consumed.
 
 We tried **[PUSE](https://zannael.github.io/PUSE/)** RTC recovery / Quick Fix. The candidate tested with this particular save was rejected as corrupted and Unbound fell back to its previous save. That led us to investigate whether Unbound's own Time Fixer could simply be made available again.
 
@@ -96,7 +96,7 @@ Thanks to **Zannael and [PUSE (Pokémon Unbound Save Editor)](https://zannael.gi
 
 Thanks also to the Pokémon Unbound, PSP homebrew, GBAdhoc, and TempGBA communities and developers.
 
-Screenshot sources: the Time Fixer NPC screenshot is from the [Pokémon Unbound Wiki Frozen Heights page](https://unboundwiki.com/locations/frozen-heights/), the intro/title screenshot is from the [Pokémon Unbound Backloggd/IGDB listing](https://backloggd.com/games/pokemon-unbound/), and the RTC warning sequence is from the TempGBA screenshots captured during this investigation.
+Screenshot sources: the Time Fixer NPC screenshot is from the [Pokémon Unbound Wiki Frozen Heights page](https://unboundwiki.com/locations/frozen-heights/), the intro/title screenshot is from the [Pokémon Unbound Backloggd/IGDB listing](https://backloggd.com/games/pokemon-unbound/), and the RTC warning sequence is from screenshots captured during this investigation.
 
 No Pokémon ROMs or user save data are distributed in this repository.
 
