@@ -4,6 +4,8 @@ A small browser-based and command-line tool that lets you reset/re-enable Pokém
 
 In plain terms, this is a way to reset/re-enable Pokémon Unbound's one-time **NPC RTC Time Fixer**. If you already used the NPC while your emulator or device RTC was still wrong, you can use this tool after correcting the RTC so the NPC can be used again and perform the real in-game repair.
 
+Use the online fixer here: **[Pokémon Unbound NPC Time Fixer Reset](https://caesarium25.github.io/pokemon-unbound-npc-time-fixer-reset/)**
+
 ## Screenshots
 
 | Pokémon Unbound intro/title screen | Time Fixer NPC in Frozen Heights |
@@ -59,7 +61,7 @@ By default it patches **only the newest section-4 copy**, leaving the older gene
 
 ## Online/browser fixer
 
-Open `index.html` locally or through GitHub Pages. Select your `.sav`, inspect the detected save generation and target byte, then click **Create patched save**. Processing happens entirely in your browser; the save is not uploaded to a server.
+Open the live fixer at **[caesarium25.github.io/pokemon-unbound-npc-time-fixer-reset](https://caesarium25.github.io/pokemon-unbound-npc-time-fixer-reset/)**, or open `index.html` locally. Select your `.sav`, inspect the detected save generation and target byte, then click **Create patched save**. Processing happens entirely in your browser; the save is not uploaded to a server.
 
 ## Recovery procedure
 
