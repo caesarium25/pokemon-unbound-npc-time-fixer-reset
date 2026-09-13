@@ -20,9 +20,13 @@ We encountered the problem while playing Pokémon Unbound on a PSP using **GBAdh
 
 Observed RTC warning sequence after moving the save to TempGBA:
 
-| Warning | RTC tampering detected | 2070 date | Events disabled | Final warning |
-| --- | --- | --- | --- | --- |
-| <img src="assets/screenshots/rtc-warning-01-warning.png" alt="Pokémon Unbound warning dialog" width="160"> | <img src="assets/screenshots/rtc-warning-02-detected.png" alt="Pokémon Unbound RTC tampering detected dialog" width="160"> | <img src="assets/screenshots/rtc-warning-03-date-2070.png" alt="Pokémon Unbound current ingame date set to 2070 dialog" width="160"> | <img src="assets/screenshots/rtc-warning-04-events-disabled.png" alt="Pokémon Unbound daily events and raids disabled dialog" width="160"> | <img src="assets/screenshots/rtc-warning-05-refrain.png" alt="Pokémon Unbound refrain from tampering with RTC dialog" width="160"> |
+| Step | Screenshot |
+| --- | --- |
+| 1. Warning | <img src="assets/screenshots/rtc-warning-01-warning.png" alt="Pokémon Unbound warning dialog" width="240"> |
+| 2. RTC tampering detected | <img src="assets/screenshots/rtc-warning-02-detected.png" alt="Pokémon Unbound RTC tampering detected dialog" width="240"> |
+| 3. 2070 date | <img src="assets/screenshots/rtc-warning-03-date-2070.png" alt="Pokémon Unbound current ingame date set to 2070 dialog" width="240"> |
+| 4. Events disabled | <img src="assets/screenshots/rtc-warning-04-events-disabled.png" alt="Pokémon Unbound daily events and raids disabled dialog" width="240"> |
+| 5. Please refrain | <img src="assets/screenshots/rtc-warning-05-refrain.png" alt="Pokémon Unbound refrain from tampering with RTC dialog" width="240"> |
 
 The 2070 value appears to be an RTC/calendar emulation or epoch problem in this scenario rather than the PSP clock itself being set to 2070. A 1970-like epoch value can surface as 2070 in Unbound while hours/minutes are still plausible. We have not established that every GBAdhoc build or every game has this behavior, so this repository documents it as an observed GBAdhoc/Unbound case rather than a universal GBAdhoc bug.
 
