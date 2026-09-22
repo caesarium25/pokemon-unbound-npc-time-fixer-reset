@@ -3,137 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pokémon Unbound NPC Time Fixer Reset</title>
+<meta http-equiv="refresh" content="0; url=https://zannael.github.io/PUSE/">
+<link rel="canonical" href="https://zannael.github.io/PUSE/">
+<title>RTC Time Fixer recovery has moved to PUSE</title>
 <style>
   :root { color-scheme: light dark; font-family: system-ui, sans-serif; }
-  body { max-width: 760px; margin: 40px auto; padding: 0 18px; line-height: 1.5; }
-  .card { border: 1px solid #8886; border-radius: 12px; padding: 18px; margin: 16px 0; }
-  button, input { font: inherit; }
-  button { padding: 10px 14px; cursor: pointer; }
-  code { padding: .1rem .3rem; border-radius: 4px; background: #8882; }
-  pre { overflow-x: auto; padding: 12px; border-radius: 8px; background: #8882; }
-  .good { font-weight: 700; }
-  .warn { font-weight: 700; }
-  #log { white-space: pre-wrap; }
+  body { max-width: 680px; margin: 64px auto; padding: 0 20px; line-height: 1.6; }
+  a { font-weight: 700; }
 </style>
+<script>window.location.replace('https://zannael.github.io/PUSE/');</script>
 </head>
 <body>
-<h1>Pokémon Unbound NPC Time Fixer Reset</h1>
-<p>
-  Re-enables the one-time <strong>Frozen Heights Time Fixer NPC</strong> for a specific RTC-tampering
-  recovery scenario. Processing is entirely local in your browser.
-</p>
-
-<div class="card">
-  <p><strong>Before using:</strong> keep an untouched backup and make sure your emulator/device date and time are correct.</p>
-  <input id="file" type="file" accept=".sav,application/octet-stream">
+<main>
+  <h1>RTC Time Fixer recovery is now in PUSE</h1>
   <p>
-    <label>
-      <input id="allCopies" type="checkbox">
-      Patch all section-4 copies (advanced; newest-only is safer and recommended)
-    </label>
+    PUSE incorporated the one-byte Time Fixer recovery discovered and reproduced by this project
+    into its maintained Pokémon Unbound save editor.
   </p>
-  <button id="patch" disabled>Create patched save</button>
-</div>
-
-<div class="card">
-  <strong>Status</strong>
-  <pre id="log">Choose a .sav file.</pre>
-</div>
-
-<div class="card">
-<h2>After patching</h2>
-<ol>
-  <li>Put the patched <code>.sav</code> into your emulator.</li>
-  <li>Launch Unbound. The RTC warning may still appear on this first boot.</li>
-  <li>Load your save.</li>
-  <li>Talk to the Time Fixer NPC in Frozen Heights, outside Professor Log's Lab.</li>
-  <li>Let the NPC repair the RTC.</li>
-  <li>Save normally in-game.</li>
-  <li>Restart the game. The RTC warning should be gone.</li>
-</ol>
-</div>
-
-<p><small>This is an unofficial community repair. It does not include or distribute Pokémon ROMs or save data.</small></p>
-
-<script>
-const SAVE_BODY_LEN = 0x20000;
-const SECTION_SIZE = 0x1000;
-const SECTION_ID_OFF = 0xFF4;
-const SAVE_INDEX_OFF = 0xFFC;
-const TARGET_SECTION = 4;
-const TARGET_REL_OFF = 0xE89;
-const TARGET_MASK = 0x20;
-
-const fileInput = document.getElementById('file');
-const patchBtn = document.getElementById('patch');
-const log = document.getElementById('log');
-const allCopies = document.getElementById('allCopies');
-
-let selectedFile = null;
-
-function u16le(a, o) { return a[o] | (a[o+1] << 8); }
-function u32le(a, o) { return (a[o] | (a[o+1] << 8) | (a[o+2] << 16) | (a[o+3] << 24)) >>> 0; }
-function hex(n, width=0) { return '0x' + n.toString(16).toUpperCase().padStart(width, '0'); }
-function findSection4Copies(a) {
-  if (a.length < SAVE_BODY_LEN) throw new Error(`Save is too small (${a.length} bytes). Expected at least ${SAVE_BODY_LEN} bytes.`);
-  const copies = [];
-  for (let off = 0; off < SAVE_BODY_LEN; off += SECTION_SIZE) {
-    const sid = u16le(a, off + SECTION_ID_OFF);
-    const idx = u32le(a, off + SAVE_INDEX_OFF);
-    if (sid === TARGET_SECTION && idx > 0) copies.push({idx, off});
-  }
-  copies.sort((x, y) => y.idx - x.idx);
-  return copies;
-}
-
-fileInput.addEventListener('change', async () => {
-  selectedFile = fileInput.files[0] || null;
-  patchBtn.disabled = !selectedFile;
-  if (!selectedFile) { log.textContent = 'Choose a .sav file.'; return; }
-  try {
-    const a = new Uint8Array(await selectedFile.arrayBuffer());
-    const copies = findSection4Copies(a);
-    if (!copies.length) throw new Error('No valid section-4 copies found.');
-    const newest = copies[0];
-    const v = a[newest.off + TARGET_REL_OFF];
-    log.textContent =
-      `File: ${selectedFile.name}\n` +
-      `Size: ${a.length} bytes\n` +
-      `Section-4 copies: ${copies.map(c => `idx=${c.idx}@${hex(c.off)}`).join(', ')}\n` +
-      `Newest target byte: ${hex(v, 2)} at ${hex(newest.off + TARGET_REL_OFF)}\n` +
-      `Bit 0x20 is ${v & TARGET_MASK ? 'SET (repair can clear it)' : 'already CLEAR'}.`;
-  } catch (e) { patchBtn.disabled = true; log.textContent = 'Error: ' + e.message; }
-});
-
-patchBtn.addEventListener('click', async () => {
-  try {
-    const a = new Uint8Array(await selectedFile.arrayBuffer());
-    const copies = findSection4Copies(a);
-    if (!copies.length) throw new Error('No valid section-4 copies found.');
-    const targets = allCopies.checked ? copies : [copies[0]];
-    const lines = [];
-    let changed = 0;
-    for (const c of targets) {
-      const pos = c.off + TARGET_REL_OFF;
-      const before = a[pos];
-      const after = before & (~TARGET_MASK & 0xFF);
-      a[pos] = after;
-      if (before !== after) changed++;
-      lines.push(`idx ${c.idx}: ${hex(pos)}  ${hex(before,2)} -> ${hex(after,2)}`);
-    }
-    const base = selectedFile.name.replace(/\.sav$/i, '');
-    const name = base + '.npc-timefixer-reset.sav';
-    const blob = new Blob([a], {type: 'application/octet-stream'});
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url; link.download = name; document.body.appendChild(link); link.click(); link.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-    log.textContent =
-      `Created ${name}\n` + `${lines.join('\n')}\n` + `Changed target bytes: ${changed}\n\n` +
-      `Next: load it, talk to the Frozen Heights Time Fixer NPC, let the NPC repair, save in-game, then restart.`;
-  } catch (e) { log.textContent = 'Error: ' + e.message; }
-});
-</script>
+  <p><a href="https://zannael.github.io/PUSE/">Continue to PUSE</a></p>
+  <p>
+    <small>
+      See <a href="https://github.com/Zannael/PUSE/issues/22">issue #22</a> and
+      <a href="https://github.com/Zannael/PUSE/commit/24ee82f">the implementation commit</a>.
+    </small>
+  </p>
+</main>
 </body>
 </html>

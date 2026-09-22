@@ -1,10 +1,12 @@
 # Pokémon Unbound NPC Time Fixer Reset
 
-A small browser-based and command-line tool that lets you reset/re-enable Pokémon Unbound's one-time **Time Fixer NPC in Frozen Heights** after it has already been used.
+A proof-of-concept repository and command-line tool that lets you reset/re-enable Pokémon Unbound's one-time **Time Fixer NPC in Frozen Heights** after it has already been used.
 
 In plain terms, this is a way to reset/re-enable Pokémon Unbound's one-time **NPC RTC Time Fixer**. If you already used the NPC while your emulator or device RTC was still wrong, you can use this tool after correcting the RTC so the NPC can be used again and perform the real in-game repair.
 
-Use the online fixer here: **[Pokémon Unbound NPC Time Fixer Reset](https://caesarium25.github.io/pokemon-unbound-npc-time-fixer-reset/)**
+> **This solution is now incorporated into [PUSE (Pokémon Unbound Save Editor)](https://zannael.github.io/PUSE/).** PUSE adopted the one-byte Time Fixer recovery discovered and reproduced in this repository, added stronger save-layout and generation validation, and made it available across its browser, backend, Switch, and 3DS versions. **[Use the maintained PUSE fixer](https://zannael.github.io/PUSE/).**
+
+The original report and acknowledgment are recorded in [PUSE issue #22](https://github.com/Zannael/PUSE/issues/22), and the implementation landed in [PUSE commit `24ee82f`](https://github.com/Zannael/PUSE/commit/24ee82f). This repository remains available as the original investigation, technical documentation, and proof of concept.
 
 ## Screenshots
 
@@ -59,15 +61,17 @@ By default it patches **only the newest section-4 copy**, leaving the older gene
 
 **Important:** this one-byte edit does not itself repair the RTC metadata. It re-enables Unbound's own one-time Time Fixer so the game can perform the repair while a correct RTC source is active.
 
-## Online/browser fixer
+## Recommended fixer
 
-Open the live fixer at **[caesarium25.github.io/pokemon-unbound-npc-time-fixer-reset](https://caesarium25.github.io/pokemon-unbound-npc-time-fixer-reset/)**, or open `index.html` locally. Select your `.sav`, inspect the detected save generation and target byte, then click **Create patched save**. Processing happens entirely in your browser; the save is not uploaded to a server.
+Use **[PUSE](https://zannael.github.io/PUSE/)** for the maintained implementation of this recovery method. It validates the Unbound save layout and generations, clears only the Time Fixer-used bit in the newest coherent generation, and preserves the older fallback generation, opaque section footer, and optional RTC trailer.
+
+The original command-line implementation remains in this repository for reference. The former GitHub Pages fixer now redirects to PUSE.
 
 ## Recovery procedure
 
 1. Keep an untouched backup of the original `.sav`.
 2. Make sure the emulator/device RTC is correct first.
-3. Run the save through this tool and keep the generated patched copy.
+3. Run the save through PUSE's maintained RTC recovery, or the original command-line tool in this repository, and keep the generated patched copy.
 4. Load the patched save in Pokémon Unbound. The RTC warning may still appear on this first boot.
 5. Go to the **Time Fixer NPC in Frozen Heights, outside Professor Log's Lab**.
 6. Let the NPC repair the RTC.
@@ -93,6 +97,8 @@ See `TECHNICAL.md` for the save layout and reasoning.
 ## Credits and acknowledgements
 
 Thanks to **Zannael and [PUSE (Pokémon Unbound Save Editor)](https://zannael.github.io/PUSE/)** for publishing Pokémon Unbound RTC recovery research and the RTC manifest. That work was valuable in narrowing down the relevant save data and identifying section 4 offset `0xE89` as a candidate during this investigation.
+
+Zannael subsequently incorporated this repository's one-byte recovery method into PUSE, credited the discovery and reproduction from [issue #22](https://github.com/Zannael/PUSE/issues/22), and expanded it into a validated, maintained implementation for PUSE's supported runtimes. Thank you for carrying the finding forward and making it available to more players.
 
 Thanks also to the Pokémon Unbound, PSP homebrew, GBAdhoc, and TempGBA communities and developers.
 
